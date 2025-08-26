@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSecure Blog - Asesoría Express en Seguridad Digital</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "🛡️";
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .article-meta {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .video-container {
+            margin: 2rem 0;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #667eea;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+        }
+
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .article-content h2 {
+            color: #667eea;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-table {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pricing-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .pricing-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 1rem 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">TechSecure Blog</div>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#precios">Precios</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <article>
+                <div class="article-header">
+                    <h1 class="article-title">Asesoría Express en Seguridad Digital: La Solución que Tu Negocio Necesita</h1>
+                    <div class="article-meta">
+                        <span>📅 25 de Agosto, 2025</span>
+                        <span>👤 Por TechSecure Team</span>
+                        <span>🔒 Categoría: Ciberseguridad</span>
+                        <span>⏱️ Lectura: 8 minutos</span>
+                    </div>
+                </div>
+
+                <div class="video-container">
+                    <div class="video-placeholder" onclick="playVideo()">
+                        <div class="play-button">▶</div>
+                        <h3>🎥 "Ciberseguridad para Emprendedores: Protege tu Negocio Digital"</h3>
+                        <p>Descubre cómo implementar medidas básicas de seguridad en tu empresa</p>
+                        <small style="opacity: 0.8;">Haz clic para reproducir el video</small>
+                    </div>
+                </div>
+
+                <div class="article-content">
+                    <div class="highlight-box">
+                        <strong>🚨 DATO IMPORTANTE:</strong> El 60% de las pequeñas empresas cierran dentro de 6 meses después de sufrir un ciberataque. ¿Tu negocio está protegido?
+                    </div>
+
+                    <p>En la era digital actual, la <strong>ciberseguridad</strong> ya no es un lujo exclusivo de las grandes corporaciones. Cada día, miles de pequeñas y medianas empresas (PYMES) se convierten en víctimas de ciberataques que podrían haberse evitado con las medidas adecuadas de protección.</p>
+
+                    <p>Es aquí donde nace <strong>"Asesoría Express en Seguridad Digital"</strong>, una propuesta innovadora que democratiza el acceso a servicios de ciberseguridad profesional, haciéndolos accesibles y asequibles para emprendedores, freelancers y pequeños comercios electrónicos.</p>
+
+                    <h2>🎯 ¿Qué es Asesoría Express en Seguridad Digital?</h2>
+
+                    <p>Nuestra propuesta de negocio digital se centra en brindar servicios especializados de consultoría en ciberseguridad de manera rápida, práctica y económica. Nos enfocamos en tres pilares fundamentales:</p>
+
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <h3>💬 Consultas Virtuales</h3>
+                            <p>Sesiones personalizadas vía WhatsApp, videollamada o chat en vivo para resolver dudas específicas sobre seguridad digital, configuración de herramientas y mejores prácticas.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>📚 Guías Descargables</h3>
+                            <p>Material educativo especializado: manuales de configuración, checklists de seguridad, plantillas de políticas y guías paso a paso para implementar medidas preventivas.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>🔧 Revisión de Configuraciones</h3>
+                            <p>Auditorías básicas de sistemas, revisión de configuraciones de seguridad, análisis de vulnerabilidades comunes y recomendaciones personalizadas.</p>
+                        </div>
+                    </div>
+
+                    <h2>👥 ¿Quiénes Son Nuestros Clientes Ideales?</h2>
+
+                    <p>Nuestro mercado objetivo está perfectamente definido y representa un segmento en crecimiento exponencial:</p>
+
+                    <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                        <li><strong>PYMES</strong>: Pequeñas y medianas empresas que manejan datos sensibles pero no tienen presupuesto para un departamento de IT completo.</li>
+                        <li><strong>Freelancers</strong>: Profesionales independientes que trabajan con clientes corporativos y necesitan demostrar estándares de seguridad.</li>
+                        <li><strong>Comercios Electrónicos</strong>: Tiendas online que procesan pagos y manejan información personal de clientes.</li>
+                        <li><strong>Startups</strong>: Empresas emergentes que requieren establecer bases sólidas de seguridad desde el inicio.</li>
+                    </ul>
+
+                    <h2>📱 Canales de Distribución Estratégicos</h2>
+
+                    <p>Hemos seleccionado cuidadosamente nuestros canales de comunicación basándonos en las preferencias de nuestro público objetivo:</p>
+
+                    <div class="highlight-box">
+                        <strong>WhatsApp Business</strong>: Canal principal para consultas rápidas y soporte inmediato.<br>
+                        <strong>Instagram</strong>: Contenido educativo, casos de estudio y testimoniales.<br>
+                        <strong>Sitio Web Optimizado</strong>: Hub central con recursos, blog y sistema de reservas.
+                    </div>
+
+                    <h2>💰 Modelo de Ingresos Flexible y Escalable</h2>
+
+                    <div class="pricing-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Servicio</th>
+                                    <th>Modalidad</th>
+                                    <th>Precio</th>
+                                    <th>Beneficios</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Consulta Individual</td>
+                                    <td>Pago por sesión</td>
+                                    <td>$25-50 USD</td>
+                                    <td>Respuesta inmediata, sin compromiso</td>
+                                </tr>
+                                <tr>
+                                    <td>Paquete Básico</td>
+                                    <td>Mensual</td>
+                                    <td>$99 USD</td>
+                                    <td>3 consultas + guías básicas</td>
+                                </tr>
+                                <tr>
+                                    <td>Paquete Premium</td>
+                                    <td>Mensual</td>
+                                    <td>$199 USD</td>
+                                    <td>Consultas ilimitadas + auditoría</td>
+                                </tr>
+                                <tr>
+                                    <td>Auditoría Completa</td>
+                                    <td>Una vez</td>
+                                    <td>$299 USD</td>
+                                    <td>Análisis integral + plan de acción</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>🏢 Infraestructura Técnica y Costos</h2>
+
+                    <p>Basándonos en nuestra investigación de mercado, hemos identificado las mejores opciones para establecer nuestra presencia digital:</p>
+
+                    <div class="highlight-box">
+                        <strong>Hosting Recomendado: Hostinger</strong><br>
+                        • Costo: $2.99/mes<br>
+                        • Espacio: 100 GB<br>
+                        • Dominio gratuito incluido<br>
+                        • Soporte 24/7<br>
+                        • Excelente relación calidad-precio
+                    </div>
+
+                    <p><strong>Dominio Sugerido:</strong> asesorseguro.com ($12/año) - Disponible y altamente brandeable para nuestro mercado objetivo.</p>
+
+                    <p><strong>Métodos de Pago:</strong> Integración principal con PayPal por su seguridad y reconocimiento internacional, complementado con PayNexus para el mercado regional latinoamericano.</p>
+
+                    <h2>🚀 ¿Por Qué Este Negocio es Viable Ahora?</h2>
+
+                    <p>El timing para este emprendimiento no podría ser mejor:</p>
+
+                    <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                        <li>📈 <strong>Crecimiento exponencial</strong> del comercio electrónico post-pandemia</li>
+                        <li>🎯 <strong>Mayor conciencia</strong> sobre riesgos de ciberseguridad</li>
+                        <li>💼 <strong>Digitalización forzada</strong> de negocios tradicionales</li>
+                        <li>🏛️ <strong>Nuevas regulaciones</strong> de protección de datos</li>
+                        <li>💰 <strong>Costos reducidos</strong> de entrada al mercado digital</li>
+                    </ul>
+
+                    <div class="cta-section">
+                        <h2>🎯 ¡Tu Seguridad Digital No Puede Esperar!</h2>
+                        <p>Cada minuto que tu negocio opera sin la protección adecuada, está en riesgo. No esperes a ser víctima de un ciberataque para actuar.</p>
+                        <button class="cta-button" onclick="alert('¡Gracias por tu interés! Contacta por WhatsApp: +502 1234-5678')">💬 Consulta Gratuita por WhatsApp</button>
+                        <button class="cta-button" onclick="alert('Visita nuestro sitio web: asesorseguro.com (próximamente)')">🌐 Visitar Sitio Web</button>
+                        <button class="cta-button" onclick="alert('Síguenos en Instagram: @asesorseguro')">📱 Seguir en Instagram</button>
+                    </div>
+
+                    <h2>📊 Conclusiones del Análisis de Mercado</h2>
+
+                    <p>Nuestro estudio exhaustivo confirma que <strong>"Asesoría Express en Seguridad Digital"</strong> representa una oportunidad de negocio sólida y escalable:</p>
+
+                    <div class="highlight-box">
+                        ✅ <strong>Mercado en crecimiento:</strong> Demanda insatisfecha en el segmento PYME<br>
+                        ✅ <strong>Barreras de entrada bajas:</strong> Inversión inicial mínima<br>
+                        ✅ <strong>Escalabilidad comprobada:</strong> Modelo replicable y automatizable<br>
+                        ✅ <strong>Diferenciación clara:</strong> Enfoque en rapidez y accesibilidad<br>
+                        ✅ <strong>Múltiples fuentes de ingreso:</strong> Diversificación de riesgos
+                    </div>
+
+                    <h2>🎯 Próximos Pasos</h2>
+
+                    <p>Para convertir esta propuesta en realidad, recomendamos seguir esta hoja de ruta:</p>
+
+                    <ol style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                        <li><strong>Semana 1-2:</strong> Registro del dominio asesorseguro.com y contratación de Hostinger</li>
+                        <li><strong>Semana 3-4:</strong> Desarrollo del sitio web básico y configuración de WhatsApp Business</li>
+                        <li><strong>Semana 5-6:</strong> Creación de contenido inicial y guías descargables</li>
+                        <li><strong>Semana 7-8:</strong> Lanzamiento suave con primeros clientes beta</li>
+                        <li><strong>Mes 3:</strong> Expansión y optimización basada en feedback inicial</li>
+                    </ol>
+
+                    <p>El futuro de la seguridad digital para pequeños negocios está en nuestras manos. <strong>¡Es momento de actuar!</strong></p>
+                </div>
+            </article>
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <a href="#privacidad">Política de Privacidad</a>
+                <a href="#terminos">Términos de Uso</a>
+                <a href="#contacto">Contacto</a>
+                <a href="#blog">Blog</a>
+                <a href="#recursos">Recursos</a>
+            </div>
+            <p>&copy; 2025 TechSecure Blog - Asesoría Express en Seguridad Digital. Todos los derechos reservados.</p>
+            <p><small>Desarrollado con ❤️ para emprendedores que valoran la seguridad digital</small></p>
+        </footer>
+    </div>
+
+    <script>
+        function playVideo() {
+            alert('🎥 Video: "Ciberseguridad para Emprendedores"\n\n' +
+                  'En este video aprenderás:\n' +
+                  '• Las 5 amenazas más comunes para PYMES\n' +
+                  '• Cómo configurar tu primera línea de defensa\n' +
+                  '• Herramientas gratuitas de protección\n' +
+                  '• Casos reales de empresas que se protegieron\n\n' +
+                  'Para ver el video completo, visita:\n' +
+                  'https://youtube.com/asesorseguro (próximamente)\n\n' +
+                  '¡Suscríbete para no perderte ningún contenido!');
+        }
+
+        // Efecto de scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Animación de entrada para las tarjetas
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .highlight-box, .pricing-table').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
